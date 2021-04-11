@@ -27,7 +27,7 @@ func (h Handler) create(c echo.Context) error {
 
 	err := h.useCase.Create(requestData)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpected error: %v", err).Error())
 	}
 
 	return c.JSON(http.StatusCreated, fmt.Sprintf("created successful"))
@@ -36,7 +36,7 @@ func (h Handler) create(c echo.Context) error {
 func (h Handler) update(c echo.Context) error {
 	ID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusBadRequest, fmt.Errorf("convert error: %v", err).Error())
 	}
 
 	requestData := model.Measure{}
@@ -46,7 +46,7 @@ func (h Handler) update(c echo.Context) error {
 
 	err = h.useCase.Update(ID, requestData)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpected error: %v", err).Error())
 	}
 
 	return c.JSON(http.StatusOK, fmt.Sprintf("updated successful"))
@@ -55,12 +55,12 @@ func (h Handler) update(c echo.Context) error {
 func (h Handler) delete(c echo.Context) error {
 	ID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusBadRequest, fmt.Errorf("convert error: %v", err).Error())
 	}
 
 	err = h.useCase.Delete(ID)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpected error: %v", err).Error())
 	}
 
 	return c.JSON(http.StatusOK, fmt.Sprintf("deleted successful"))
@@ -69,12 +69,12 @@ func (h Handler) delete(c echo.Context) error {
 func (h Handler) get(c echo.Context) error {
 	ID, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusBadRequest, fmt.Errorf("convert error: %v", err).Error())
 	}
 
 	data, err := h.useCase.Get(ID)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpected error: %v", err).Error())
 	}
 
 	return c.JSON(http.StatusOK, data)
@@ -83,7 +83,7 @@ func (h Handler) get(c echo.Context) error {
 func (h Handler) getAll(c echo.Context) error {
 	data, err := h.useCase.GetAll()
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpedted error"))
+		return c.JSON(http.StatusInternalServerError, fmt.Errorf("unexpected error: %v", err).Error())
 	}
 
 	return c.JSON(http.StatusOK, data)

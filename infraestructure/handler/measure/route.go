@@ -21,11 +21,11 @@ func NewRoutes(app *echo.Echo, db db.DB) {
 }
 
 func privateRoutes(app *echo.Echo, handler Handler) {
-	app.Group(privateRoutePrefix)
+	api := app.Group(privateRoutePrefix)
 
-	app.POST("/", handler.create)
-	app.PUT("/:id", handler.update)
-	app.DELETE("/:id", handler.delete)
-	app.GET("/:id", handler.get)
-	app.GET("/", handler.getAll)
+	api.POST("/", handler.create)
+	api.PUT("/:id", handler.update)
+	api.DELETE("/:id", handler.delete)
+	api.GET("/:id", handler.get)
+	api.GET("/", handler.getAll)
 }
